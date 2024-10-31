@@ -15,17 +15,21 @@
 
     <script src='https://cxppusa1formui01cdnsa01-endpoint.azureedge.net/usa/FormLoader/FormLoader.bundle.js'></script>
     <script>
+        let recaptchaRendered = false; // Track if reCAPTCHA has been rendered
+
         function onloadCallback() {
-            // Check for the reCAPTCHA placeholder every 100ms until found, then render
             const interval = setInterval(function() {
                 const recaptchaElement = document.getElementById('g-recaptcha');
-                if (recaptchaElement) {
+                
+                // Check if reCAPTCHA element is present and hasn't been rendered
+                if (recaptchaElement && !recaptchaRendered) {
                     grecaptcha.render('g-recaptcha', { 
                         sitekey: '6LdJr28qAAAAANH4rIzJMU8EvR36zNy_WDOwnCF0',
                     });
-                    clearInterval(interval); // Stop checking once found and rendered
+                    recaptchaRendered = true; // Mark as rendered
+                    clearInterval(interval); // Stop further checks
                 }
-            }, 100); // Adjust interval time if necessary
+            }, 100); // Adjust interval if needed
         }
 
         document.addEventListener("d365mkt-afterformload", onloadCallback);
