@@ -16,16 +16,16 @@
     <script src='https://cxppusa1formui01cdnsa01-endpoint.azureedge.net/usa/FormLoader/FormLoader.bundle.js'></script>
     <script>
         function onloadCallback() {
-            // Wait for a moment to ensure the embedded form has loaded
-            setTimeout(function() {
-                if (document.getElementById('g-recaptcha')) {
+            // Check for the reCAPTCHA placeholder every 100ms until found, then render
+            const interval = setInterval(function() {
+                const recaptchaElement = document.getElementById('g-recaptcha');
+                if (recaptchaElement) {
                     grecaptcha.render('g-recaptcha', { 
                         sitekey: '6LdJr28qAAAAANH4rIzJMU8EvR36zNy_WDOwnCF0',
                     });
-                } else {
-                    console.error("reCAPTCHA placeholder not found");
+                    clearInterval(interval); // Stop checking once found and rendered
                 }
-            }, 500); // Adjust the delay if needed
+            }, 100); // Adjust interval time if necessary
         }
 
         document.addEventListener("d365mkt-afterformload", onloadCallback);
