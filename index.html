@@ -15,24 +15,26 @@
 
     <script src='https://cxppusa1formui01cdnsa01-endpoint.azureedge.net/usa/FormLoader/FormLoader.bundle.js'></script>
     <script>
-        let recaptchaRendered = false; // Track if reCAPTCHA has been rendered
-
         function onloadCallback() {
-            const interval = setInterval(function() {
-                const recaptchaElement = document.getElementById('g-recaptcha');
-                
-                // Check if reCAPTCHA element is present and hasn't been rendered
-                if (recaptchaElement && !recaptchaRendered) {
-                    grecaptcha.render('g-recaptcha', { 
-                        sitekey: '6LdJr28qAAAAANH4rIzJMU8EvR36zNy_WDOwnCF0',
-                    });
-                    recaptchaRendered = true; // Mark as rendered
-                    clearInterval(interval); // Stop further checks
-                }
-            }, 100); // Adjust interval if needed
+            const recaptchaElement = document.getElementById('g-recaptcha');
+
+            // Only render if the element exists and reCAPTCHA hasn't been rendered
+            if (recaptchaElement && recaptchaElement.innerHTML.trim() === "") {
+                grecaptcha.render('g-recaptcha', { 
+                    sitekey: '6LdJr28qAAAAANH4rIzJMU8EvR36zNy_WDOwnCF0',
+                });
+            } else {
+                console.log("reCAPTCHA has already been rendered or element not found");
+            }
         }
 
-        document.addEventListener("d365mkt-afterformload", onloadCallback);
+        // Register onloadCallback once, then remove listener after execution
+        const handleFormLoad = () => {
+            onloadCallback();
+            document.removeEventListener("d365mkt-afterformload", handleFormLoad);
+        };
+        
+        document.addEventListener("d365mkt-afterformload", handleFormLoad);
     </script>
 </body>
 </html>
