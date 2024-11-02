@@ -5,19 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Embedded Marketing Form</title>
 
+    <!-- Load reCAPTCHA API -->
     <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback" async defer></script>
     <script>
         function onloadCallback() {
+            // Render reCAPTCHA when the script is loaded
             if (typeof grecaptcha !== 'undefined') {
                 grecaptcha.render('g-recaptcha', {
                     'sitekey': '6LdJr28qAAAAANH4rIzJMU8EvR36zNy_WDOwnCF0' // Your reCAPTCHA site key
+                });
+
+                // Now add the form load event listener after reCAPTCHA has been initialized
+                document.addEventListener("d365mkt-afterformload", function() {
+                    grecaptcha.render('g-recaptcha', {
+                        'sitekey': '6LdJr28qAAAAANH4rIzJMU8EvR36zNy_WDOwnCF0' // Your reCAPTCHA site key
+                    });
                 });
             } else {
                 console.error('grecaptcha is not defined');
             }
         }
-
-        document.addEventListener("d365mkt-afterformload", onloadCallback);
     </script>
 </head>
 <body>
