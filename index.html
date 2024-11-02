@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <script>
+        function onloadCallback() {
+            grecaptcha.render('g-recaptcha', {
+                'sitekey': '6LdJr28qAAAAANH4rIzJMU8EvR36zNy_WDOwnCF0' // Replace {sitekey} with your actual site key from Google reCAPTCHA
+            });
+        }
+
+        document.addEventListener("d365mkt-afterformload", onloadCallback);
+    </script>
     <title>Embedded Marketing Form</title>
-<!--     <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback" async defer></script>
- -->
+    
+
 
 </head>
 <body>
@@ -16,14 +25,7 @@
         data-form-api-url='https://public-usa.mkt.dynamics.com/api/v1.0/orgs/4597ee6b-1b5b-ef11-bfdf-6045bd00332f/landingpageforms'
         data-cached-form-url='https://assets-usa.mkt.dynamics.com/4597ee6b-1b5b-ef11-bfdf-6045bd00332f/digitalassets/forms/27f22042-1799-ef11-a72d-000d3a5a6f05' ></div>
         <script src = 'https://cxppusa1formui01cdnsa01-endpoint.azureedge.net/usa/FormLoader/FormLoader.bundle.js' ></script>
-<!--         <script>
-        function onloadCallback() {
-            grecaptcha.render('g-recaptcha', {
-                'sitekey': '6LdJr28qAAAAANH4rIzJMU8EvR36zNy_WDOwnCF0' // Replace {sitekey} with your actual site key from Google reCAPTCHA
-            });
-        }
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback" async defer></script>
 
-        document.addEventListener("d365mkt-afterformload", onloadCallback);
-    </script> -->
 </body>
 </html>
