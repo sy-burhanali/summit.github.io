@@ -11,9 +11,15 @@
         function onloadCallback() {
             // Render reCAPTCHA when the script is loaded
             if (typeof grecaptcha !== 'undefined') {
-                grecaptcha.render('g-recaptcha', {
-                    'sitekey': '6LdJr28qAAAAANH4rIzJMU8EvR36zNy_WDOwnCF0' // Your reCAPTCHA site key
-                });
+                // Ensure that the placeholder element exists in the DOM before rendering
+                const recaptchaElement = document.getElementById('g-recaptcha');
+                if (recaptchaElement) {
+                    grecaptcha.render('g-recaptcha', {
+                        'sitekey': '6LdJr28qAAAAANH4rIzJMU8EvR36zNy_WDOwnCF0' // Your reCAPTCHA site key
+                    });
+                } else {
+                    console.error('reCAPTCHA placeholder element not found in the DOM.');
+                }
 
                 // Now add the form load event listener after reCAPTCHA has been initialized
                 document.addEventListener("d365mkt-afterformload", function() {
@@ -33,7 +39,12 @@
     <div
         data-form-id='27f22042-1799-ef11-a72d-000d3a5a6f05'
         data-form-api-url='https://public-usa.mkt.dynamics.com/api/v1.0/orgs/4597ee6b-1b5b-ef11-bfdf-6045bd00332f/landingpageforms'
-        data-cached-form-url='https://assets-usa.mkt.dynamics.com/4597ee6b-ef11-bfdf-6045bd00332f/digitalassets/forms/27f22042-1799-ef11-a72d-000d3a5a6f05'></div>
+        data-cached-form-url='https://assets-usa.mkt.dynamics.com/4597ee6b-ef11-bfdf-6045bd00332f/digitalassets/forms/27f22042-1799-ef11-a72d-000d3a5a6f05'>
+    </div>
+    
+    <!-- Placeholder for reCAPTCHA -->
+    <div id="g-recaptcha"></div>
+
     <script src='https://cxppusa1formui01cdnsa01-endpoint.azureedge.net/usa/FormLoader/FormLoader.bundle.js'></script>
 </body>
 </html>
